@@ -31,21 +31,7 @@ O laboratório demonstra como automatizar a configuração do Amazon S3 Object L
 
 ## Fluxo da Arquitetura
 
-```text
-Cliente
-   │
-   ▼
-S3 Object Lambda
-   │
-   ▼
-AWS Lambda
-   │
-   ▼
-Supporting Access Point
-   │
-   ▼
-Amazon S3
-```
+![alt text](image.png)
 
 ---
 

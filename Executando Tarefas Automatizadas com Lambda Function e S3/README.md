@@ -1,20 +1,20 @@
-# Executando Tarefas Automatizadas com Lambda Function e S3
+# Arquitetura Serverless para Processamento de Notas Fiscais
 
-##  Descrição
+## Descrição
 
-Projeto desenvolvido durante o laboratório da DIO com o objetivo de compreender a automação de tarefas utilizando AWS Lambda, Amazon S3 e AWS CloudFormation.
+Projeto desenvolvido durante o laboratório da DIO com o objetivo de compreender a automação de tarefas utilizando Amazon S3, AWS Lambda e Amazon DynamoDB em uma arquitetura serverless baseada em eventos.
 
-O laboratório demonstra como automatizar a configuração do Amazon S3 Object Lambda utilizando um template do CloudFormation, permitindo criar toda a infraestrutura de forma padronizada.
+Durante o laboratório foi implementado um fluxo automatizado de processamento de arquivos JSON, demonstrando como integrar serviços da AWS para armazenamento, processamento e consulta de dados.
 
 ---
 
 ## Objetivos
 
-- Entender o conceito de Serverless.
-- Criar recursos automaticamente utilizando CloudFormation.
-- Integrar Amazon S3 com AWS Lambda.
-- Automatizar o processamento de objetos utilizando S3 Object Lambda.
-- Compreender boas práticas de Infraestrutura como Código (IaC).
+- Entender o conceito de Serverless;
+- Integrar Amazon S3 com AWS Lambda;
+- Processar automaticamente arquivos enviados ao S3;
+- Armazenar informações no Amazon DynamoDB;
+- Disponibilizar consultas através do Amazon API Gateway.
 
 ---
 
@@ -22,40 +22,40 @@ O laboratório demonstra como automatizar a configuração do Amazon S3 Object L
 
 - AWS Lambda
 - Amazon S3
-- Amazon S3 Object Lambda
-- AWS CloudFormation
+- Amazon DynamoDB
+- Amazon API Gateway
 - Amazon CloudWatch
 - AWS IAM
 
 ---
 
-## Fluxo da Arquitetura
+## Arquitetura da Solução
 
-![alt text](image.png)
+![Arquitetura da Solução](image.png)
 
-## Arquitetura Serverless para Processamento de Notas Fiscais
 
 ## Objetivo
 
 Este projeto demonstra uma arquitetura serverless na AWS para processar automaticamente arquivos JSON contendo informações de notas fiscais. Após o upload no Amazon S3, uma função AWS Lambda realiza a validação dos dados e os armazena no Amazon DynamoDB. A consulta das informações é realizada por meio do Amazon API Gateway.
 
 ## Fluxo da Arquitetura
-O usuário envia um arquivo JSON para um bucket Amazon S3.
-O evento de upload dispara uma função AWS Lambda.
-A Lambda valida o conteúdo do arquivo.
-Os dados válidos são gravados no Amazon DynamoDB.
-O cliente consulta as informações através do Amazon API Gateway, que aciona uma segunda Lambda para buscar os dados no banco.
+
+1. O usuário envia um arquivo JSON para um bucket Amazon S3.
+2. O Amazon S3 dispara automaticamente uma função AWS Lambda.
+3. A Lambda valida o conteúdo do arquivo.
+4. Os dados válidos são gravados no Amazon DynamoDB.
+5. O cliente consulta as informações através do Amazon API Gateway, que aciona uma segunda função Lambda para retornar os dados.
 
 ## Validações
 
-## Durante o processamento são realizadas as seguintes validações:
+Durante o processamento são realizadas as seguintes validações:
 
-Arquivo no formato JSON;
-Campos obrigatórios preenchidos;
-Estrutura do documento válida;
-Dados aptos para gravação no DynamoDB.
+- Arquivo no formato JSON;
+- Campos obrigatórios preenchidos;
+- Estrutura do documento válida;
+- Dados aptos para gravação no Amazon DynamoDB.
 
-Caso alguma validação falhe, o processamento é interrompido e o erro é registrado no CloudWatch.
+Caso alguma validação falhe, o processamento é interrompido e o erro é registrado no Amazon CloudWatch.
 
 ## Considerações
 
@@ -73,23 +73,21 @@ Permite executar código sem gerenciar servidores.
 
 Serviço de armazenamento de objetos altamente escalável.
 
-### S3 Object Lambda
+### Amazon DynamoDB
 
-Permite transformar objetos antes de entregá-los ao cliente.
+Banco de dados NoSQL utilizado para armazenar os dados processados pela função Lambda.
 
-### AWS CloudFormation
+### Amazon API Gateway
 
-Automatiza o provisionamento da infraestrutura utilizando templates YAML ou JSON.
+Serviço responsável por disponibilizar uma API REST para consulta das informações armazenadas.
 
 ---
 
 ## Aprendizados
 
-Durante este laboratório compreendi como o AWS CloudFormation pode automatizar toda a configuração do S3 Object Lambda, reduzindo erros manuais e garantindo padronização da infraestrutura.
+Durante este laboratório compreendi como utilizar uma arquitetura orientada a eventos para automatizar o processamento de arquivos utilizando Amazon S3 e AWS Lambda.
 
-Também aprendi que o AWS Lambda pode modificar objetos dinamicamente antes que eles sejam entregues ao usuário, sem alterar o arquivo original armazenado no bucket.
-
-Outro ponto importante foi compreender a integração entre Amazon S3, Lambda, IAM e CloudWatch em uma arquitetura serverless.
+Também aprendi a armazenar dados em um banco NoSQL com Amazon DynamoDB, disponibilizando consultas por meio do Amazon API Gateway e utilizando o Amazon CloudWatch para monitoramento e registro de logs.
 
 ---
 
@@ -98,9 +96,8 @@ Outro ponto importante foi compreender a integração entre Amazon S3, Lambda, I
 ```text
 .
 ├── README.md
-├── docs
 ├── images
-├── lambda
+│   └── arquitetura.png
 └── template.yaml
 ```
 
@@ -108,22 +105,23 @@ Outro ponto importante foi compreender a integração entre Amazon S3, Lambda, I
 
 ## Evidências
 
-Adicionar nesta pasta:
+As capturas de tela da implementação encontram-se na pasta `images`, demonstrando as principais etapas do laboratório:
 
-- Criação da função Lambda
-- Bucket S3
-- Trigger
-- CloudFormation
-- CloudWatch
+- Criação da função AWS Lambda;
+- Configuração do bucket Amazon S3;
+- Configuração do Trigger do S3;
+- Execução da aplicação;
+- Registros no Amazon CloudWatch.
 
 ---
 
 ## Referências
 
-- AWS CloudFormation
-- AWS Lambda
-- Amazon S3 Object Lambda
-- Documentação Oficial da AWS
+- AWS Lambda: https://docs.aws.amazon.com/lambda/
+- Amazon S3: https://docs.aws.amazon.com/s3/
+- Amazon DynamoDB: https://docs.aws.amazon.com/dynamodb/
+- Amazon API Gateway: https://docs.aws.amazon.com/apigateway/
+- Amazon CloudWatch: https://docs.aws.amazon.com/cloudwatch/
 
 ---
 

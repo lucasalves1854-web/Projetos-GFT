@@ -32,7 +32,32 @@ O laboratório demonstra como automatizar a configuração do Amazon S3 Object L
 ## Fluxo da Arquitetura
 
 ![alt text](image.png)
+Arquitetura Serverless para Processamento de Notas Fiscais
+Objetivo
 
+Este projeto demonstra uma arquitetura serverless na AWS para processar automaticamente arquivos JSON contendo informações de notas fiscais. Após o upload no Amazon S3, uma função AWS Lambda realiza a validação dos dados e os armazena no Amazon DynamoDB. A consulta das informações é realizada por meio do Amazon API Gateway.
+
+Fluxo da Arquitetura
+O usuário envia um arquivo JSON para um bucket Amazon S3.
+O evento de upload dispara uma função AWS Lambda.
+A Lambda valida o conteúdo do arquivo.
+Os dados válidos são gravados no Amazon DynamoDB.
+O cliente consulta as informações através do Amazon API Gateway, que aciona uma segunda Lambda para buscar os dados no banco.
+
+Validações
+
+Durante o processamento são realizadas as seguintes validações:
+
+Arquivo no formato JSON;
+Campos obrigatórios preenchidos;
+Estrutura do documento válida;
+Dados aptos para gravação no DynamoDB.
+
+Caso alguma validação falhe, o processamento é interrompido e o erro é registrado no CloudWatch.
+
+Considerações
+
+A arquitetura utiliza uma abordagem orientada a eventos, permitindo processamento automático, escalabilidade e baixo custo operacional por utilizar serviços serverless da AWS.
 ---
 
 ## Principais Conceitos

@@ -127,6 +127,6 @@ As capturas de tela da implementação encontram-se na pasta `images`, demonstra
 
 ## Autor
 
-Lucas Alves oi lucas
+Lucas Alves 
 
 AWS Certified Cloud Practitioner
